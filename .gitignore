@@ -1,1 +1,11 @@
 *.o
+*.a
+*.so
+ffmpeg
+ffplay
+ffprobe
+ffserver
+ffmpeg_g
+ffplay_g
+ffprobe_g
+ffserver_g
