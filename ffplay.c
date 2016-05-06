@@ -3123,7 +3123,16 @@ static int read_thread(void *arg)
             packet_queue_put(&is->subtitleq, pkt);
         } else {
             av_packet_unref(pkt);
-        }
+			//begin;add by liulu;
+			//修复bug；
+			//bug描述；播放udp://@IP:PORT流媒体时，当服务器端已经停止；当时ffplay并不会自动退出
+			if((!is->audio_st || (frame_queue_nb_remaining(&is->sampq) == 0)) &&
+            (!is->video_st || (frame_queue_nb_remaining(&is->pictq) == 0))){
+            	ret = AVERROR_EOF;
+            	goto fail;
+            }
+            //end;add by liulu;
+        } 
     }
 
     ret = 0;
